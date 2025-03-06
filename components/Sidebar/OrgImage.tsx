@@ -28,7 +28,8 @@ export const OrgImage = (props: OrgImageProps) => {
     return `${src}`
   }
   const homeLoader = ({ src, width, quality }: { [key: string]: string | number }) => {
-    return `http://localhost:35901/img/${src}`
+    const host = window.location.hostname;
+    return `http://${host}:35901/img/${src}`
   }
 
   if (src.replaceAll(/(http)?.*/g, '$1')) {
@@ -44,10 +45,12 @@ export const OrgImage = (props: OrgImageProps) => {
   const fullPath =
     path.isAbsolute(srcName) || srcName.slice(0, 1) === '~' ? srcName : path.join(dir, srcName)
   const encodedPath = encodeURIComponent(encodeURIComponent(fullPath))
+      
+      const host = window.location.hostname;
 
   return (
     <Container my={4} position="relative">
-      <img alt="Wow, an image." src={`http://localhost:35901/img/${encodedPath}`} />
+      <img alt="Wow, an image." src={`http://${host}:35901/img/${encodedPath}`} />
     </Container>
   )
 }
